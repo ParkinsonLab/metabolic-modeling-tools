@@ -1,19 +1,20 @@
 Install required tools on lab server  /home/pubadmin/programs/gapseq
 
-Install gapseq locally
+## Install gapseq locally
 
   git clone https://github.com/jotech/gapseq && cd gapseq
   
-Test the gapseq installation
+## Test the gapseq installation
 
   ./gapseq test
 
-Download genome assemblies from NCBI
+## Download genome assemblies from NCBI
 
   wget ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Lactobacillus_johnsonii/representative/GCF_014841035.1_ASM1484103v1/GCF_014841035.1_ASM1484103v1_genomic.fna.gz -P /home/xuejian/Evonik/Data/
   mv /home/xuejian/Evonik/Data/GCF_014841035.1_ASM1484103v1_genomic.fna.gz /home/xuejian/Evonik/Data/Lactobacillus_johnsonii.fna.gz
 
-An example to run gapseq
+
+## An example to run gapseq
 
   #!/bin/bash
   # set the path to gapseq
