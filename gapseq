@@ -1,4 +1,8 @@
-Install required tools on lab server  /home/pubadmin/programs/gapseq
+The gapseq paper is publised Genome Biology 2021 (https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02295-1).
+
+All required tools has been installed on the lab server  /home/pubadmin/programs/gapseq.
+
+To run gapseq properly, it has to be installed in the user's local folder as follows:
 
 ## Install gapseq locally
 
@@ -14,7 +18,8 @@ git clone https://github.com/jotech/gapseq && cd gapseq
   mv /home/xuejian/Evonik/Data/GCF_014841035.1_ASM1484103v1_genomic.fna.gz /home/xuejian/Evonik/Data/Lactobacillus_johnsonii.fna.gz
 
 
-## An example to run gapseq
+
+Here is an example to run the gapseq pipeline:
 
   #!/bin/bash
   # set the path to gapseq
