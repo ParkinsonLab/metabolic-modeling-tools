@@ -1,0 +1,40 @@
+
+Run KBase for draft reconstruction (https://narrative.kbase.us/narrative/ws.113268.obj.8)
+
+1) Download genome from ncbi (in the *_genomic.fna.gz format)
+2) Click plus button on the left top panel to import data
+3) Import from staging area – parameter: assembly -> draft isolate
+3) Unpack a Compressed File in Staging Area – do it one by one
+4) Batch Import Assembly from Staging Area – parameter: draft isolate; output: assemblies
+5) Annotate Multiple Microbial Assembilies – input: assemblies; parameters: list (*_genomic__ …), check all except the last one; output: genomes
+6) Build Multiple Metabolic Models – input: *_genomic__.RAST; parameters: auto, gapfill  
+7) Bulk Download Modeling Objects – input: *_genomic__.RAST.fbamodel
+8) Extract results into your local folder, or for larger files go to step 9) and 10)
+9) Export Data Object To Staging Area – output files into workspace_export\
+10) link Globus with KBase to download files in workspace_export\
+
+Run DEMETER script in Matlab for gap filling
+
+1) generate a taxonomic and strain info. file: 'mysp_infoFile.xlsx'
+- The IDs in the column ‘MicrobeID’ need to match the names of the resulting refined reconstructions exactly.
+- get taxanomic and strain info. from IMG (Integrated microbial genomes) https://img.jgi.doe.gov/
+- get subsystem info. from pubseed
+
+2) b5_demeter_run_single_reconstruction.m
+For updating changes in the file ‘mysp_infoFile.xlsx’, you need to regenerate reaction files in InputData/. Therefore, you need to run initCobraToolbox first.
+~\cobratoolbox\papers\2021_demeter\input\ReactionDatabase.txt contains all reactions and formulas
+The “IReactionID” is from BiGG (http://bigg.ucsd.edu/universal/reactions/URIt4)
+In “removeFutileCycles.m”, you have to modified the table “reactionsToReplace” by removing lines for “GLYO1”, “1H2NPTH”, “HSNOOX”, “34HPPORdc”, “SALCACD”, and “SQLE”.
+
+Running cobrapy on Scinet to convert the format of constructed models, i.e. from .mat to .xml
+
+  module load NiaEnv/2019b python/3.8
+  source ~/.virtualenvs/myenv/bin/activate
+  python
+  > import cobra
+  > import libsbml
+  > model = cobra.io.load_matlab_model("Escherichia_coli_K12_MG1655.mat")
+  > cobra.io.write_sbml_model(model, " Escherichia_coli_K12_MG1655.xml")
+  
+  
+  
