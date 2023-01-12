@@ -1,5 +1,9 @@
+The DEMETER paper is publised in Bioinformatics 2021 (https://academic.oup.com/bioinformatics/article/37/21/3974/6362871).
 
-Run KBase for draft reconstruction (https://narrative.kbase.us/narrative/ws.113268.obj.8)
+There are two main parts to run the DEMETER pipeline.
+
+
+Part 1: Run KBase for draft reconstruction (https://narrative.kbase.us/narrative/ws.113268.obj.8)
 
 1) Download genome from ncbi (in the *_genomic.fna.gz format)
 2) Click plus button on the left top panel to import data
@@ -13,7 +17,8 @@ Run KBase for draft reconstruction (https://narrative.kbase.us/narrative/ws.1132
 9) Export Data Object To Staging Area – output files into workspace_export\
 10) link Globus with KBase to download files in workspace_export\
 
-Run DEMETER script in Matlab for gap filling
+
+Part 2: Run DEMETER script in Matlab for gap filling
 
 1) generate a taxonomic and strain info. file: 'mysp_infoFile.xlsx'
 - The IDs in the column ‘MicrobeID’ need to match the names of the resulting refined reconstructions exactly.
@@ -26,7 +31,10 @@ For updating changes in the file ‘mysp_infoFile.xlsx’, you need to regenerat
 The “IReactionID” is from BiGG (http://bigg.ucsd.edu/universal/reactions/URIt4)
 In “removeFutileCycles.m”, you have to modified the table “reactionsToReplace” by removing lines for “GLYO1”, “1H2NPTH”, “HSNOOX”, “34HPPORdc”, “SALCACD”, and “SQLE”.
 
-Running cobrapy on Scinet to convert the format of constructed models, i.e. from .mat to .xml
+
+The metabolic model is stroed in a MatLab data format (.mat). To convert it into .xml format, cobrapy is needed.
+
+-- Running cobrapy on Scinet to convert the format of constructed models, i.e. from .mat to .xml
 
   module load NiaEnv/2019b python/3.8
   source ~/.virtualenvs/myenv/bin/activate
