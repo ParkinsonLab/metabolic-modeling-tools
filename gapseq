@@ -2,7 +2,7 @@ Install required tools on lab server  /home/pubadmin/programs/gapseq
 
 ## Install gapseq locally
 ---
-  git clone https://github.com/jotech/gapseq && cd gapseq
+git clone https://github.com/jotech/gapseq && cd gapseq
   
 ## Test the gapseq installation
 
