@@ -1,0 +1,46 @@
+Install required tools on lab server  /home/pubadmin/programs/gapseq
+
+Install gapseq locally
+
+  git clone https://github.com/jotech/gapseq && cd gapseq
+  
+Test the gapseq installation
+
+  ./gapseq test
+
+Download genome assemblies from NCBI
+
+  wget ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Lactobacillus_johnsonii/representative/GCF_014841035.1_ASM1484103v1/GCF_014841035.1_ASM1484103v1_genomic.fna.gz -P /home/xuejian/Evonik/Data/
+  mv /home/xuejian/Evonik/Data/GCF_014841035.1_ASM1484103v1_genomic.fna.gz /home/xuejian/Evonik/Data/Lactobacillus_johnsonii.fna.gz
+
+An example to run gapseq
+
+  #!/bin/bash
+  # set the path to gapseq
+  gapseqdir=/home/username/gapseq
+  workdir=/home/username/test
+
+  data=$workdir/Data
+  outdir=$workdir/Results
+
+  gapseq=$gapseqdir/./gapseq
+  taxonomy=Bacteria
+
+  modelA="Lactobacillus_johnsonii"
+
+  cd $outdir
+
+  # Reaction & Pathway prediction
+  $gapseq find -p all -v 0 -b 200 -t $taxonomy -m $taxonomy $data/$modelA.fna.gz
+
+  # Transporter prediction
+  $gapseq find-transport -b 200 $data/$modelA.fna.gz 
+
+  # Building Draft Model - based on Reaction-, Pathway-, and Transporter prediction
+  $gapseq draft -r $outdir/$modelA-all-Reactions.tbl -t $outdir/$modelA-Transporter.tbl -p $outdir/$modelA-all-Pathways.tbl -c $data/$modelA.fna.gz -u 200 -l 100  -b $taxonomy
+
+  # get growth medium
+  Rscript $gapseqdir/src/predict_medium.R -m $outdir/$modelA-draft.RDS -p $outdir/$modelA-all-Pathways.tbl
+
+  # Gapfilling
+  $gapseq fill -m $outdir/$modelA-draft.RDS -n $outdir/$modelA-medium.csv -c $outdir/$modelA-rxnWeights.RDS -g $outdir/$modelA-rxnXgenes.RDS -b 100
