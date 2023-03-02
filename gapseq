@@ -7,6 +7,11 @@ To run gapseq properly, it has to be installed in the user's local folder as fol
 ## Install gapseq locally
 
 git clone https://github.com/jotech/gapseq && cd gapseq
+
+## Download Bacteria and Archaea databases
+
+src/update_sequences.sh
+src/update_sequences.sh Archaea
   
 ## Test the gapseq installation
 
